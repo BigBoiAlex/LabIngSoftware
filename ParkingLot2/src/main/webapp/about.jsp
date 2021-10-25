@@ -2,6 +2,6 @@
 <%@taglib prefix="t" tagdir="/WEB-INF/tags" %>
 
 
-<t:pageTemplate pageTitle="About Parking Lots">
+<t:pageTemplate pageTitle="About Parking Lots Stories">
     <h1>Here you can find all the information about parking lots</h1>
 </t:pageTemplate>
