@@ -36,7 +36,7 @@ public class Cars extends HttpServlet {
             out.println("<!DOCTYPE html>");
             out.println("<html>");
             out.println("<head>");
-            out.println("<title>Servlet Cars</title>");            
+            out.println("<title>Servlet Cars</title>");
             out.println("</head>");
             out.println("<body>");
             out.println("<h1>Servlet Cars at " + request.getContextPath() + "</h1>");

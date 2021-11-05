@@ -5,12 +5,13 @@
 package com.park.parkinglot.entity;
 
 import java.io.Serializable;
-import java.util.Collection;
 import javax.persistence.Entity;
+import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
-import javax.persistence.OneToMany;
+import javax.persistence.JoinColumn;
+import javax.persistence.ManyToOne;
 import javax.persistence.Table;
 
 /**
@@ -18,25 +19,20 @@ import javax.persistence.Table;
  * @author alexj
  */
 @Entity
-@Table(name = "USERS")
-public class User implements Serializable {
+@Table(name = "CARS")
+public class Car implements Serializable {
 
     private static final long serialVersionUID = 1L;
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
     private Integer id;
 
-    private String username;
+    private String licensePlate;
+    private String parkingSpot;
 
-    private String email;
-
-    private String password;
-
-    private String position;
-
-    @OneToMany(mappedBy = "user")
-
-    private Collection<Car> cars;
+    @ManyToOne(fetch = FetchType.LAZY)
+    @JoinColumn(name = "USER_KEY")
+    private User user;
 
     public Integer getId() {
         return id;
@@ -46,48 +42,28 @@ public class User implements Serializable {
         this.id = id;
     }
 
-    public void setUsername(String username) {
-        this.username = username;
+    public void setLicensePlate(String licensePlate) {
+        this.licensePlate = licensePlate;
     }
 
-    public void setEmail(String email) {
-        this.email = email;
+    public void setParkingSpot(String parkingSpot) {
+        this.parkingSpot = parkingSpot;
     }
 
-    public void setPassword(String password) {
-        this.password = password;
+    public void setUser(User user) {
+        this.user = user;
     }
 
-    public void setPosition(String position) {
-        this.position = position;
+    public String getLicensePlate() {
+        return licensePlate;
     }
 
-    public void setCars(Collection<Car> cars) {
-        this.cars = cars;
+    public String getParkingSpot() {
+        return parkingSpot;
     }
 
-    public static long getSerialVersionUID() {
-        return serialVersionUID;
-    }
-
-    public String getUsername() {
-        return username;
-    }
-
-    public String getEmail() {
-        return email;
-    }
-
-    public String getPassword() {
-        return password;
-    }
-
-    public String getPosition() {
-        return position;
-    }
-
-    public Collection<Car> getCars() {
-        return cars;
+    public User getUser() {
+        return user;
     }
 
     @Override
@@ -100,10 +76,10 @@ public class User implements Serializable {
     @Override
     public boolean equals(Object object) {
         // TODO: Warning - this method won't work in the case the id fields are not set
-        if (!(object instanceof User)) {
+        if (!(object instanceof Car)) {
             return false;
         }
-        User other = (User) object;
+        Car other = (Car) object;
         if ((this.id == null && other.id != null) || (this.id != null && !this.id.equals(other.id))) {
             return false;
         }
@@ -112,7 +88,7 @@ public class User implements Serializable {
 
     @Override
     public String toString() {
-        return "com.park.parkinglot.entity.User[ id=" + id + " ]";
+        return "com.park.parkinglot.entity.Car[ id=" + id + " ]";
     }
 
 }
