@@ -35,7 +35,6 @@ public class User implements Serializable {
     private String position;
 
     @OneToMany(mappedBy = "user")
-
     private Collection<Car> cars;
 
     public Integer getId() {
