@@ -2,28 +2,24 @@ package entity;
 
 import javax.persistence.*;
 import java.io.Serializable;
+import java.util.Collection;
 
-@Table(name = "PERSISTENCE_ROSTER_LEAGUE")
 @Entity
-public class League implements Serializable {
+@Table(name = "PERSISTENCE_ROSTER_LEAGUE")
+public abstract class League implements Serializable {
     private static final long serialVersionUID = 5060910864394673463L;
+    protected String id;
+    protected String name;
+    protected String sport;
+    protected Collection<Team> teams;
 
     @Id
-    @Column(name = "id", nullable = false)
-    protected String id;
-
-    @Column(name = "name")
-    protected String name;
-
-    @Column(name = "sport")
-    protected String sport;
-
-    public String getSport() {
-        return sport;
+    public String getId() {
+        return id;
     }
 
-    public void setSport(String sport) {
-        this.sport = sport;
+    public void setId(String id) {
+        this.id = id;
     }
 
     public String getName() {
@@ -34,14 +30,29 @@ public class League implements Serializable {
         this.name = name;
     }
 
-    public String getId() {
-        return id;
+    public String getSport() {
+        return sport;
     }
 
-    public void setId(String id) {
-        this.id = id;
+    public void setSport(String sport) {
+        this.sport = sport;
     }
 
+    @OneToMany(cascade = CascadeType.ALL, mappedBy = "league")
+    public Collection<Team> getTeams() {
+        return teams;
+    }
 
+    public void setTeams(Collection<Team> teams) {
+        this.teams = teams;
+    }
+
+    public void addTeam(Team team) {
+        this.getTeams().add(team);
+    }
+
+    public void dropTeam(Team team) {
+        this.getTeams().remove(team);
+    }
 
 }
