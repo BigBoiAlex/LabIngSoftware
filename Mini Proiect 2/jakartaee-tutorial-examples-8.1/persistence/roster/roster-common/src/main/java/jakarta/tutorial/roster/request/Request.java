@@ -80,5 +80,15 @@ public interface Request {
     List<TeamDetails> getAllTeamsOrderedByScore();
 
     MatchDetails getMatchByMatchID(int matchID);
+   
+    List<MatchDetails> getHostMatchesOfTeamByTeamID(String teamID);
+    
+    List<MatchDetails> getGuestMatchesOfTeamByTeamID(String teamID);
+    
+    TeamDetails getHostTeamOfMatch(int matchID);
+    
+    TeamDetails getGuestTeamOfMatch(int matchID);
+    
+    List<TeamDetails> getAllTeamsOfMatch(int matchID);
 
 }

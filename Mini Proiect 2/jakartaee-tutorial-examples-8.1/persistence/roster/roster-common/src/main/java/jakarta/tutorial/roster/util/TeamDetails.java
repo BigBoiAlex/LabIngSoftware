@@ -64,7 +64,7 @@ public class TeamDetails implements Serializable {
 
     @Override
     public String toString() {
-        return " NAME = " + name + " MATCHES = " + matchesPlayed + " SCORE = " + score;
+        return "TEAM ID = " + id + " NAME = " + name + " MATCHES = " + matchesPlayed + " SCORE = " + score;
     }
 
 }

@@ -284,8 +284,35 @@ public class RosterClient {
             System.out.println("");
 
             System.out.println("List all teams in league L2 by score:");
+            teamList = request.getTeamsInLeagueByScore("L2");
+            printDetailsList(teamList);
+            System.out.println("");
 
             System.out.println("List all teams in league L3 by score:");
+            teamList = request.getTeamsInLeagueByScore("L3");
+            printDetailsList(teamList);
+            System.out.println("");
+
+            System.out.println("Matches of Team  T2");
+            System.out.println("Where T2 is Host");
+            matchDetails = request.getHostMatchesOfTeamByTeamID("T2");
+            printDetailsList(matchDetails);
+
+            System.out.println("Where T2 is Guest");
+            matchDetails = request.getGuestMatchesOfTeamByTeamID("T2");
+            printDetailsList(matchDetails);
+            System.out.println("");
+
+            System.out.println("Get host of match 1");
+            teamDetails = request.getHostTeamOfMatch(1);
+            System.out.println(teamDetails.toString());
+            
+            teamDetails=request.getGuestTeamOfMatch(1);
+            System.out.println(teamDetails.toString());
+            
+            System.out.println("Get all teams of match 1");
+            teamList=request.getAllTeamsOfMatch(1);
+            printDetailsList(teamList);
 
             System.out.println("\n\n\n");
             System.out.println("XXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX");

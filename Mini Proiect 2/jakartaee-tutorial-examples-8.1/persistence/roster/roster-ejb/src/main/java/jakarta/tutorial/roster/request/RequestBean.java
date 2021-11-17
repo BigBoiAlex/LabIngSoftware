@@ -19,6 +19,7 @@ import java.util.logging.Logger;
 import jakarta.tutorial.roster.entity.League;
 import jakarta.tutorial.roster.entity.League_;
 import jakarta.tutorial.roster.entity.Match;
+import jakarta.tutorial.roster.entity.Match_;
 import jakarta.tutorial.roster.entity.Player;
 import jakarta.tutorial.roster.entity.Player_;
 import jakarta.tutorial.roster.entity.SummerLeague;
@@ -731,12 +732,16 @@ public class RequestBean implements Request, Serializable {
         List<Team> teams = null;
         try {
             CriteriaQuery<Team> cq = cb.createQuery(Team.class);
-            Root<Team> teamRoot = cq.from(Team.class);
+            if (cq != null) {
+                Root<Team> team = cq.from(Team.class);
+                Join<Team, League> league = team.join(Team_.league);
 
-            TypedQuery<Team> tq = em.createQuery(cq);
+                cq.where(cb.equal(league.get(League_.id), leagueID));
+                cq.orderBy(cb.desc(team.get("score")));
 
-            teams = tq.getResultList();
-
+                TypedQuery<Team> tq = em.createQuery(cq);
+                teams = tq.getResultList();
+            }
             return copyTeamsToDetails(teams);
         } catch (Exception ex) {
             throw new EJBException(ex);
@@ -756,6 +761,92 @@ public class RequestBean implements Request, Serializable {
 
         return matchDetails;
 
+    }
+
+    @Override
+    public List<MatchDetails> getHostMatchesOfTeamByTeamID(String teamID) {
+        logger.info("getHostMatchesOfTeamByTeamID");
+        List<Match> matches = null;
+
+        try {
+            CriteriaQuery<Match> cq = cb.createQuery(Match.class);
+            if (cq != null) {
+                Root<Match> match = cq.from(Match.class);
+                Join<Match, Team> team = match.join(Match_.hostTeam);
+
+                cq.where(cb.equal(team.get(Team_.id), teamID));
+                TypedQuery<Match> tq = em.createQuery(cq);
+                matches = tq.getResultList();
+            }
+            return copyMatchesToDetails(matches);
+        } catch (Exception ex) {
+            throw new EJBException(ex);
+        }
+
+    }
+
+    @Override
+    public List<MatchDetails> getGuestMatchesOfTeamByTeamID(String teamID) {
+        logger.info("getGuestMatchesOfTeamByTeamID");
+        List<Match> matches = null;
+
+        try {
+            CriteriaQuery<Match> cq = cb.createQuery(Match.class);
+            if (cq != null) {
+                Root<Match> match = cq.from(Match.class);
+                Join<Match, Team> team = match.join(Match_.guestTeam);
+                cq.where(cb.equal(team.get(Team_.id), teamID));
+
+                TypedQuery<Match> tq = em.createQuery(cq);
+                matches = tq.getResultList();
+            }
+            return copyMatchesToDetails(matches);
+        } catch (Exception ex) {
+            throw new EJBException(ex);
+        }
+    }
+
+    @Override
+    public TeamDetails getHostTeamOfMatch(int matchID) {
+        logger.info("getHostTeamOfMatch");
+        TeamDetails teamDetails;
+        Team hostTeam = null;
+
+        try {
+            Match match = em.find(Match.class, matchID);
+            hostTeam = match.getHostTeam();
+        } catch (Exception ex) {
+            throw new EJBException(ex);
+        }
+        teamDetails = new TeamDetails(hostTeam.getId(), hostTeam.getName(), hostTeam.getCity());
+        return teamDetails;
+    }
+
+    @Override
+    public TeamDetails getGuestTeamOfMatch(int matchID) {
+        logger.info("getGuestTeamOfMatch");
+        TeamDetails teamDetails;
+        Team guestTeam = null;
+
+        try {
+            Match match = em.find(Match.class, matchID);
+            guestTeam = match.getGuestTeam();
+        } catch (Exception ex) {
+            throw new EJBException(ex);
+        }
+        teamDetails = new TeamDetails(guestTeam.getId(), guestTeam.getName(), guestTeam.getCity());
+        return teamDetails;
+    }
+
+    @Override
+    public List<TeamDetails> getAllTeamsOfMatch(int matchID) {
+        List<TeamDetails> teamDetails = new ArrayList<>();
+        TeamDetails hostTeamDetails = getHostTeamOfMatch(matchID);
+        TeamDetails guesTeamDetails = getGuestTeamOfMatch(matchID);
+
+        teamDetails.add(hostTeamDetails);
+        teamDetails.add(guesTeamDetails);
+        return teamDetails;
     }
 
 }
