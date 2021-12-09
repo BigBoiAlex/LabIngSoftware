@@ -38,6 +38,5 @@ public class AddUser extends HttpServlet {
         userBean.createUser(username, email, passwordSha256, position);
 
         response.sendRedirect(request.getContextPath() + "/Users");
-
     }
 }
