@@ -1,7 +1,7 @@
 package com.example.parkinglotintellij.ejb;
 
+import com.example.parkinglotintellij.common.UserDetails;
 import com.example.parkinglotintellij.entity.User;
-import com.example.parkinglotintellij.common.*;
 
 import javax.ejb.EJBException;
 import javax.ejb.Stateless;
@@ -23,21 +23,30 @@ public class UserBean {
     @PersistenceContext
     private EntityManager em;
 
-    public List<UserDetails> getAllUsers(){
+    public List<UserDetails> getAllUsers() {
         LOG.info("getAllUsers");
-        try{
+        try {
             Query query = em.createQuery("SELECT u FROM User u");
             List<User> users = (List<User>) query.getResultList();
             return copyUsersToDetails(users);
-        }
-        catch(Exception ex){
+        } catch (Exception ex) {
             throw new EJBException(ex);
         }
     }
 
-    private List<UserDetails> copyUsersToDetails(List<User> users){
+    public void createUser(String username, String email, String passwordSha256, String position) {
+        User user = new User();
+        user.setUsername(username);
+        user.setEmail(email);
+        user.setPassword(passwordSha256);
+        user.setPosition(position);
+
+        em.persist(user);
+    }
+
+    private List<UserDetails> copyUsersToDetails(List<User> users) {
         List<UserDetails> detailsList = new ArrayList<>();
-        for(User user : users){
+        for (User user : users) {
             UserDetails userDetails = new UserDetails(user.getId(),
                     user.getUsername(),
                     user.getEmail(),

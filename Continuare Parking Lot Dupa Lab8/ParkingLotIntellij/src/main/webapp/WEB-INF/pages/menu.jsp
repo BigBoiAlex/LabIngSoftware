@@ -17,7 +17,7 @@
                             <a class="nav-link" href="${pageContext.request.contextPath}/Cars">Cars</a>
                         </li>
                     </c:if>
-                    <c:if test="${pageContext.request.isUserInRole('AdminRole')}">
+                    <c:if test="${pageContext.request.isUserInRole('ClientRole')}">
                         <li class="nav-item ${activePage eq 'Users' ? 'active' : ''} ">
                             <a class="nav-link" href="${pageContext.request.contextPath}/Users">Users</a>
                         </li>
