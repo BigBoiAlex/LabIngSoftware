@@ -1,4 +1,4 @@
-package com.example.parkinglotintellij.servlet;
+package com.example.parkinglotintellij.servlet.user;
 
 import com.example.parkinglotintellij.ejb.UserBean;
 import com.example.parkinglotintellij.util.PasswordUtil;
@@ -14,7 +14,7 @@ import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;
 
 @ServletSecurity(value = @HttpConstraint(rolesAllowed = {"AdminRole"}))
-@WebServlet(name = "AddUser", value = "/AddUser")
+@WebServlet(name = "AddUser", value = "/Users/Create")
 public class AddUser extends HttpServlet {
 
     @Inject

@@ -1,4 +1,4 @@
-package com.example.parkinglotintellij.servlet;
+package com.example.parkinglotintellij.servlet.car;
 
 import com.example.parkinglotintellij.common.CarDetails;
 import com.example.parkinglotintellij.ejb.CarBean;

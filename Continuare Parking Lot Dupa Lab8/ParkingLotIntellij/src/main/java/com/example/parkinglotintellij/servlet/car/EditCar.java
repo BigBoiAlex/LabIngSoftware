@@ -1,4 +1,4 @@
-package com.example.parkinglotintellij.servlet;
+package com.example.parkinglotintellij.servlet.car;
 
 import com.example.parkinglotintellij.common.CarDetails;
 import com.example.parkinglotintellij.common.UserDetails;
@@ -17,7 +17,7 @@ import java.io.IOException;
 import java.util.List;
 
 @ServletSecurity(value = @HttpConstraint(rolesAllowed = {"AdminRole"}))
-@WebServlet(name = "EditCar", urlPatterns = {"/EditCar"})
+@WebServlet(name = "EditCar", urlPatterns = {"/Cars/Update"})
 public class EditCar extends HttpServlet {
 
     @Inject

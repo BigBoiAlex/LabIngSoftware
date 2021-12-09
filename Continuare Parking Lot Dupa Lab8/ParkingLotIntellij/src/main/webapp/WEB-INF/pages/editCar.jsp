@@ -5,7 +5,7 @@
 <t:pageTemplate pageTitle="EditCar">
     <h1>Edit a Car</h1>
     <div class="col-md-8 order-md-1">
-        <form class="needs-validation" novalidate method="post" action="${pageContext.request.contextPath}/EditCar">
+        <form class="needs-validation" novalidate method="post" action="${pageContext.request.contextPath}/Cars/Update">
             <div class="row">
                 <div class="col-md-6 mb-3">
                     <label for="license_plate">License plate</label>
