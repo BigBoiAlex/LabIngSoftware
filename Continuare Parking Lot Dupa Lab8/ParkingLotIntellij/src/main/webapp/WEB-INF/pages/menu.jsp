@@ -25,9 +25,6 @@
                     <li class="nav-item ">
                         <a class="nav-link ${pageContext.request.requestURI eq '/ParkingLot/about.jsp' ? 'active' : ''}" href="${pageContext.request.contextPath}/about.jsp">About</a>
                     </li>
-                    <li class="nav-item">
-                        <a class="nav-link" href="${pageContext.request.contextPath}/about.jsp}">Link</a>
-                    </li>
                 </ul>
                 <ul class="navbar-nav d-flex">
                     <li class="nav-item">
