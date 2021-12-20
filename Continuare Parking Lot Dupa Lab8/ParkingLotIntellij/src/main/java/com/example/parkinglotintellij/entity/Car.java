@@ -5,8 +5,7 @@ import java.io.Serializable;
 
 @Entity
 @Table(name = "CARS")
-public class Car implements Serializable
-{
+public class Car implements Serializable {
     private static final long serialVersionUID = 1L;
 
     @Id
@@ -18,6 +17,9 @@ public class Car implements Serializable
     @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "USER_KEY")
     private User user;
+
+    @OneToOne(mappedBy = "car", cascade = CascadeType.ALL, fetch = FetchType.LAZY)
+    private Photo photo;
 
     public Integer getId() {
         return id;
@@ -51,4 +53,11 @@ public class Car implements Serializable
         this.user = user;
     }
 
+    public Photo getPhoto() {
+        return photo;
+    }
+
+    public void setPhoto(Photo photo) {
+        this.photo = photo;
+    }
 }
